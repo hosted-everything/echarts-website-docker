@@ -9,6 +9,4 @@ sh replace-echarts-www.sh
 
 sh replace-echarts-doc.sh
 
-sh replace-echarts-doc.sh
-
 sh replace-echarts-examples.sh
