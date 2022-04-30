@@ -5,16 +5,10 @@
 # linux: sed -i 
 # mac: sed -i ""
 
-## 替换cdn资源为本地资源
-LC_CTYPE=C sed -i "" 's/https:\/\/cdn.jsdelivr.net\/npm/\/echarts-website\/assets/' `grep -rl "cdn.jsdelivr.net/npm/" ./ --exclude-dir=node_modules`
+sh replace-echarts-www.sh
 
-LC_CTYPE=C sed -i "" 's/href="\/\/cdn.jsdelivr.net\/npm/\/echarts-website\/assets/' `grep -rl "cdn.jsdelivr.net/npm/" ./ --exclude-dir=node_modules`
+sh replace-echarts-doc.sh
 
-LC_CTYPE=C sed -i "" 's/src="\/\/cdn.jsdelivr.net\/npm/\/echarts-website\/assets/' `grep -rl "cdn.jsdelivr.net/npm/" ./ --exclude-dir=node_modules`
+sh replace-echarts-doc.sh
 
-LC_CTYPE=C sed -i "" 's/src="\/\/cdn.jsdelivr.net\/npm/\/echarts-website\/assets/' `grep -rl "cdn.jsdelivr.net/npm/" ./ --exclude-dir=node_modules`
-
-## 替换 / 为 /
-LC_CTYPE=C sed -i "" 's/http:\/\/localhost\//\//' `grep -rl "http://localhost" ./ --exclude-dir=node_modules`
-
-LC_CTYPE=C sed -i "" 's/https:\/\/echarts.apache.org\//\/echarts-website\//' `grep -rl "/echarts-website/" ./ --exclude-dir=node_modules`
+sh replace-echarts-examples.sh
