@@ -1,0 +1,16 @@
+[submodule "echarts-website"]
+	path = echarts-website
+	url = https://github.com/apache/echarts-website.git
+	branch = asf-site
+[submodule "echarts"]
+	path = echarts
+	url = https://github.com/apache/echarts.git
+[submodule "echarts-www"]
+	path = echarts-www
+	url = https://github.com/apache/echarts-www.git
+[submodule "echarts-examples"]
+	path = echarts-examples
+	url = https://github.com/apache/echarts-examples.git
+[submodule "echarts-doc"]
+	path = echarts-doc
+	url = https://github.com/apache/echarts-doc.git
