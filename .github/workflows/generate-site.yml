@@ -1,0 +1,68 @@
+name: generate-site
+
+on:
+  schedule:
+    - cron: '0 2 * * 0' # ron on 2am every day
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/generate-site.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/generate-site.yml'
+  workflow_dispatch:
+
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  generate-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+      - name: Pull latest changes
+        run: git pull origin main --rebase # 使用 rebase 来避免合并提交
+        
+      - name: Modify release.md and commit changes
+        run: |
+          echo "## New Release $(date +"%Y.%m.%d_%H_%M_%S")" >> release.md
+          git add release.md
+          git commit -m "Update release.md" || echo "No changes to commit"
+          
+      - name: Push changes
+        run: git push origin HEAD:main || echo "Push skipped due to no changes or conflicts"
+
+      - run: sh ./generate.sh
+
+      - name: zip zite
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r echarts-website.zip ./echarts-website
+
+      - name: Generate release tag
+        id: tag
+        run: |
+          echo "::set-output name=release_tag::echarts-website_$(date +"%Y.%m.%d_%H_%M_%S")"
+      - name: GH Release
+        # You may pin to the exact commit or the version.
+        # uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          files: |
+            echarts-website.zip
