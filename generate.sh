@@ -22,4 +22,6 @@ npm run build
 # npm install --force
 # npm run build:gh
 
+cd ..
+
 find ./echarts-website -type f -exec sed -i 's|http://localhost/echarts-website|/echarts-website|g' {} +
