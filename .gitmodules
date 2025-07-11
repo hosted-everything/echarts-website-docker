@@ -14,3 +14,9 @@
 [submodule "echarts-doc"]
 	path = echarts-doc
 	url = https://github.com/apache/echarts-doc.git
+[submodule "echarts-theme-builder"]
+	path = echarts-theme-builder
+	url = https://github.com/apache/echarts-theme-builder.git
+[submodule "echarts-handbook"]
+	path = echarts-handbook
+	url = https://github.com/apache/echarts-handbook.git
